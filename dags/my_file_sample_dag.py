@@ -3,15 +3,12 @@ from airflow.utils.dates import days_ago
 from airflow.operators.python_operator import PythonOperator, BranchPythonOperator
 from airflow.contrib.hooks.fs_hook import FSHook
 from airflow.contrib.sensors.file_sensor import FileSensor
-from airflow.contrib.hooks.fs_hook import FSHook
 import os
-
-
 from datetime import timedelta
 import random
 
 args = {
-    'owner': 'kate',
+    'owner': 'kateho',
     'start_date': days_ago(1) 
 }
 
@@ -27,7 +24,6 @@ def print_file_content(**context):
     path = os.path.join(hook.get_path(), 'test.txt')
     with open (path, 'r') as fp:
         print(fp.read())
-
     #os.remove(path)
 
 with dag:
