@@ -14,17 +14,11 @@ args = {
 
 dag = DAG(dag_id = 'my_file_sample_dag', default_args = args, schedule_interval = None)
 
-
-'''def say_hi(**context):
-    print('hi')
-'''
-
 def print_file_content(**context):
     hook = FSHook('my_tmp_file_path')
     path = os.path.join(hook.get_path(), 'test.txt')
     with open (path, 'r') as fp:
         print(fp.read())
-    #os.remove(path)
 
 with dag:
     sensing_task = FileSensor(
@@ -33,15 +27,6 @@ with dag:
         fs_conn_id = 'my_tmp_file_path',
         poke_interval = 10
     )
-    '''
-    run_this_task = PythonOperator(
-        task_id = 'say_hi_task',
-        python_callable = say_hi,
-        provide_context = True,
-        retries = 10,
-        retry_delay = timedelta(seconds = 1)
-    )
-    '''
 
     print_file_task = PythonOperator(
         task_id = 'print_file_task',
@@ -50,6 +35,5 @@ with dag:
         retries = 10,
         retry_delay = timedelta(seconds = 1)
     )
-
-    
+  
     sensing_task >> print_file_task

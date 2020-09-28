@@ -26,12 +26,11 @@ def push_to_xcom(**context):
     if random.random() > 0.5:
         raise Exception('Exception')
     print('I am ok')
-#branch
+
 def branch_func(**context):
     if random.random() < 0.5:
         return 'say_hi_task'
     return 'say_hello_task'
-
 
 def print_hi(**context):
     received_value = context['ti'].xcom_pull(key = 'random_value')
@@ -49,14 +48,7 @@ with dag:
         retries = 10,
         retry_delay = timedelta(seconds = 1)
     )
-    '''
-    run_this_task2 = PythonOperator(
-        task_id = 'run_this2',
-        python_callable = run_this_func,
-        provide_context = True
-    )
-    '''
-    #branch
+
     branch_op = BranchPythonOperator(
         task_id = 'branch_task',
         python_callable = branch_func,
@@ -74,4 +66,5 @@ with dag:
         python_callable = print_hello,
         provide_context = True
     )
+
     run_this_task >> branch_op >> [run_this_task3, run_this_task4]
