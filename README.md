@@ -14,7 +14,7 @@
 ![my_sample_dag](https://github.com/chewingho/Getting-started-with-Airflow/blob/master/%E5%9C%96%E7%89%87/my_sample_dag_graph_view.PNG)  
  *  xcom_push：key為random_value、value為0.924298520719721  
 ![xcom_push](https://github.com/chewingho/Getting-started-with-Airflow/blob/master/%E5%9C%96%E7%89%87/my_sample_dag_XCom.PNG)  
- *  xom_pull：取得value為0.924298520719721    
+ *  xcom_pull：取得value為0.924298520719721    
 ![xcom_pull](https://github.com/chewingho/Getting-started-with-Airflow/blob/master/%E5%9C%96%E7%89%87/my_sample_dag_XCom2.PNG)  
 
 3. 建立DAG：my_file_sample_dag，練習FileSensor、FSHook，偵測特定檔案是否存在，每隔1秒偵測1次，若嘗試10皆沒有偵測到，即失敗  
